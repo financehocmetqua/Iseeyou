@@ -235,11 +235,14 @@
     { id:"phat-ngon-cua-team", emoji:"🎙️", title:"BỘ PHẬN PHÁT NGÔN CỦA TEAM",
       tagline:"", desc:"Bất kể cuộc họp nào, team nào, khung giờ nào — người này luôn có cách để góp mặt, góp chuyện và góp thêm vài ý kiến. Nếu cả phòng đang im lặng, hãy thử gọi tên người này." },
     { id:"canh-sat-gl", emoji:"🚨", title:"CẢNH SÁT GL",
-      tagline:"", desc:"“Em ơi, cái này em book sai GL rồi…” - Vào ngày đẹp trời hoặc không lúc MEC, bạn nhận được tin nhắn này, không mở lên vẫn biết là của ai?" },
+      tagline:"", desc:"“Em ơi, cái này em book sai GL rồi…” - Nhân ngày MEC đẹp trời, bạn nhận được tin nhắn này, không mở lên vẫn biết là của ai?" },
     { id:"tau-luon-cam-xuc", emoji:"🎢", title:"TÀU LƯỢN CẢM XÚC",
       tagline:"", desc:"Chẳng cần đi đâu xa, mỗi ngày ở cạnh người này cũng đủ trải nghiệm đủ cung bậc — lúc lên, lúc xuống, lúc không ai biết tiếp theo sẽ là gì." },
     { id:"nguoi-hung-tham-lang", emoji:"🦸", title:"NGƯỜI HÙNG THẦM LẶNG",
-      tagline:"", desc:"Ai là người luôn đi sớm, về khuya, âm thầm hỗ trợ mọi người, sẵn sàng có mặt khi cần — và đặc biệt, gần như chưa bao giờ nghe người ấy than phiền?" }
+      tagline:"", desc:"Ai là người luôn đi sớm, về khuya, âm thầm hỗ trợ mọi người, sẵn sàng có mặt khi cần — và đặc biệt, gần như chưa bao giờ nghe người ấy than phiền?" },
+    { id:"ngoi-sao-moi-noi", emoji:"🌟", title:"NGÔI SAO MỚI NỔI",
+      tagline:"“Hòa tan nhanh hơn hòa nhập”",
+      desc:"Ai là người vừa bước vào team đã nhanh chóng bắt sóng, bắt chuyện, bắt nhịp — và chẳng mấy chốc đã “hòa tan” vào đại gia đình Control?" }
   ];
 
   var NAMES = [
@@ -659,22 +662,24 @@
         '<div class="cat-emoji">🏆</div>' +
         '<div class="eyebrow">Bình chọn nội bộ · ẩn danh</div>' +
         '<h1 class="intro-title">Gala Danh Hiệu</h1>' +
-        '<p class="intro-sub">8 danh hiệu vui dành cho team — mỗi danh hiệu, chọn ra một người bạn nghĩ tới đầu tiên. Vui là chính, đừng nghĩ quá nhiều nhé!</p>' +
+        '<p class="intro-sub">9 danh hiệu vui dành cho team — mỗi danh hiệu, chọn ra một người bạn nghĩ tới đầu tiên. Vui là chính, đừng nghĩ quá nhiều nhé!</p>' +
         (count > 0 ? '<div class="stat-chip">🎉 Đã có <b>'+count+'</b> người tham gia bình chọn</div>' : '') +
-        '<div class="cta"><button class="btn btn-primary" id="start-btn">' +
-          (existing ? 'Sửa bình chọn của tôi ✏️' : 'Bắt đầu bình chọn 🎉') +
-        '</button></div>' +
+        (existing ?
+          '<div class="stat-chip">✅ Bạn đã gửi bình chọn rồi — cảm ơn bạn!</div>' :
+          '<div class="cta"><button class="btn btn-primary" id="start-btn">Bắt đầu bình chọn 🎉</button></div>'
+        ) +
         '<div class="privacy-note">🕶️ Bình chọn ẩn danh — không ai biết bạn đã chọn ai.</div>' +
       '</div>' +
       '<div class="footer-note"><button class="btn-text" id="admin-link-btn" type="button" style="font-size:.74rem;">🔑 Ban tổ chức</button></div>';
-    document.getElementById("start-btn").onclick = function(){
-      var ex = findMyVote();
-      view.picks = ex ? Object.assign({}, ex.picks) : {};
-      view.step = "cat";
-      view.catIndex = 0;
-      saveDraft();
-      render();
-    };
+    if(!existing){
+      document.getElementById("start-btn").onclick = function(){
+        view.picks = {};
+        view.step = "cat";
+        view.catIndex = 0;
+        saveDraft();
+        render();
+      };
+    }
     document.getElementById("admin-link-btn").onclick = function(){
       view.step = "adminlogin";
       render();
@@ -854,15 +859,7 @@
         '<div class="done-emoji">🎉</div>' +
         '<h2 style="font-size:1.35rem;margin-top:8px;">Cảm ơn bạn đã bình chọn!</h2>' +
         '<p class="intro-sub">Kết quả sẽ được công bố sau khi ban tổ chức đóng bình chọn. Bạn có thể đóng trang này bây giờ.</p>' +
-        '<div class="cta"><button class="btn btn-ghost" id="edit-again-btn">Sửa lại bình chọn của tôi</button></div>' +
       '</div>';
-    document.getElementById("edit-again-btn").onclick = function(){
-      var ex = findMyVote();
-      view.picks = ex ? Object.assign({}, ex.picks) : {};
-      view.step = "cat"; view.catIndex = 0;
-      saveDraft();
-      render();
-    };
   }
 
   // ---- submit straight to the shared Supabase store (works for any
