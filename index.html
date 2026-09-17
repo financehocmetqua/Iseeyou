@@ -1,0 +1,1000 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gala Danh Hiệu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg: #f6f4fb;
+    --surface: #ffffff;
+    --surface-2: #efe9fb;
+    --border: rgba(33,29,61,0.12);
+    --text: #211d3d;
+    --text-dim: #635c86;
+    --accent: #c97e00;
+    --accent-ink: #ffffff;
+    --accent-2: #c22a63;
+    --accent-2-ink: #ffffff;
+    --chip-bg: #efe9fb;
+    --chip-border: rgba(33,29,61,0.14);
+    --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+    --shadow: 0 10px 28px rgba(33,29,61,0.10);
+    --danger: #b3261e;
+    --danger-bg: #fbe9e7;
+    --ok: #1e7a4c;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #14122b;
+      --surface: #1e1b3d;
+      --surface-2: #282354;
+      --border: rgba(255,255,255,0.10);
+      --text: #f5f3ff;
+      --text-dim: #b6afd9;
+      --accent: #ffb703;
+      --accent-ink: #2c1b00;
+      --accent-2: #ff5d8f;
+      --accent-2-ink: #3a0016;
+      --chip-bg: #282354;
+      --chip-border: rgba(255,255,255,0.14);
+      --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+      --shadow: 0 10px 32px rgba(0,0,0,0.5);
+      --danger: #ff8a80;
+      --danger-bg: #3a1512;
+      --ok: #6fd39a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #14122b;
+    --surface: #1e1b3d;
+    --surface-2: #282354;
+    --border: rgba(255,255,255,0.10);
+    --text: #f5f3ff;
+    --text-dim: #b6afd9;
+    --accent: #ffb703;
+    --accent-ink: #2c1b00;
+    --accent-2: #ff5d8f;
+    --accent-2-ink: #3a0016;
+    --chip-bg: #282354;
+    --chip-border: rgba(255,255,255,0.14);
+    --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+    --shadow: 0 10px 32px rgba(0,0,0,0.5);
+    --danger: #ff8a80;
+    --danger-bg: #3a1512;
+    --ok: #6fd39a;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Be Vietnam Pro', -apple-system, system-ui, sans-serif;
+    padding-inline: 16px;
+    padding-block: 28px;
+    min-height: 100%;
+  }
+  .wrap{ max-width: 560px; margin: 0 auto; }
+  h1,h2,h3{ font-family: 'Baloo 2', ui-rounded, system-ui, sans-serif; text-wrap: balance; margin: 0; }
+  .eyebrow{
+    font-size: 0.72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+  }
+  .btn{
+    font-family: inherit; font-weight: 700; font-size: 0.95rem;
+    border-radius: 999px; border: 1px solid transparent; cursor: pointer;
+    padding: 12px 22px; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn:disabled{ opacity: .45; cursor: not-allowed; }
+  .btn-primary{
+    background: linear-gradient(135deg,#ffb703,#ff5d8f);
+    color: #2c1b00;
+    box-shadow: 0 6px 18px rgba(255,93,143,0.35);
+  }
+  .btn-ghost{
+    background: transparent; color: var(--text-dim); border-color: var(--border);
+  }
+  .btn-text{
+    background: none; border: none; color: var(--accent-2); font-weight: 600; padding: 8px 4px;
+  }
+  .btn-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top: 22px; flex-wrap: wrap; }
+  .btn-row .right{ display:flex; gap: 10px; margin-left:auto; }
+
+  .progress{ display:flex; gap:6px; justify-content:center; margin-bottom: 18px; }
+  .dot{
+    width: 22px; height: 22px; border-radius: 50%; font-size: .68rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    border: 2px solid var(--border); color: var(--text-dim); background: var(--surface);
+    flex: 0 0 auto;
+  }
+  .dot.done{ background: var(--ok); border-color: var(--ok); color: #fff; }
+  .dot.current{ border-color: var(--accent-2); color: var(--accent-2); box-shadow: 0 0 0 3px rgba(194,42,99,0.15); }
+
+  .cat-emoji{ font-size: 2.6rem; line-height: 1; margin-bottom: 8px; }
+  .cat-title{ font-size: clamp(1.3rem,4.6vw,1.7rem); font-weight: 800; letter-spacing: .01em; }
+  .cat-tagline{ color: var(--accent-2); font-style: italic; font-weight:600; margin-top:8px; font-size:.95rem; }
+  .cat-desc{ color: var(--text-dim); margin-top: 10px; line-height:1.55; font-size:.94rem; }
+
+  .name-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 12px; margin-top: 20px; }
+  .name-card{
+    position: relative; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden;
+    cursor: pointer; padding: 0; border: 3px solid transparent; background: var(--chip-bg);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .name-card:active{ transform: scale(0.95); }
+  .name-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit: cover; }
+  .name-avatar-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: 'Baloo 2', ui-rounded, system-ui, sans-serif;
+    font-size: 2rem; font-weight: 800; color: rgba(255,255,255,0.92);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .name-label{
+    position:absolute; left:0; right:0; bottom:0; padding: 20px 8px 9px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.78) 100%);
+    color:#fff; font-size:.76rem; font-weight:700; text-align:center; line-height:1.25;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+  }
+  .name-check-badge{
+    position:absolute; top:7px; right:7px; width:25px; height:25px; border-radius:50%; z-index:2;
+    background: linear-gradient(135deg,#ffb703,#ff5d8f); color:#2c1b00;
+    display:flex; align-items:center; justify-content:center; font-size:.82rem; font-weight:800;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35); opacity:0; transform: scale(0.4);
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .name-card[aria-checked="true"]{
+    border-color: #ffb703;
+    box-shadow: 0 0 0 3px rgba(255,183,3,0.35), 0 10px 22px rgba(255,93,143,0.4);
+    transform: translateY(-2px);
+  }
+  .name-card[aria-checked="true"] .name-check-badge{ opacity:1; transform: scale(1); }
+  .name-card[aria-checked="true"] .name-label{
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(154,49,89,0.82) 78%, rgba(124,25,64,0.9) 100%);
+  }
+  .skip-link{ margin-top: 14px; text-align:center; }
+
+  .intro-hero{ text-align:center; padding-block: 6px 4px; }
+  .intro-hero .cat-emoji{ font-size: 3rem; }
+  .intro-title{ font-size: clamp(1.7rem,6vw,2.3rem); font-weight: 800; margin-top: 6px; }
+  .intro-sub{ color: var(--text-dim); margin-top: 12px; line-height:1.6; font-size: .96rem; }
+  .stat-chip{
+    display:inline-flex; align-items:center; gap:6px; margin-top: 16px;
+    background: var(--surface-2); border-radius: 999px; padding: 7px 14px;
+    font-size: .82rem; font-weight: 600; color: var(--text-dim);
+  }
+  .privacy-note{
+    margin-top: 18px; font-size: .78rem; color: var(--text-dim);
+    display:flex; align-items:center; gap:6px; justify-content:center;
+  }
+  .cta{ margin-top: 22px; text-align:center; }
+  .cta .btn-primary{ font-size: 1.02rem; padding: 14px 28px; }
+
+  .review-row{
+    display:flex; justify-content:space-between; align-items:flex-start; gap: 10px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .review-row:last-of-type{ border-bottom:none; }
+  .review-left{ display:flex; gap:10px; align-items:flex-start; min-width:0; }
+  .review-emoji{ font-size:1.3rem; flex:0 0 auto; }
+  .review-cat{ font-size:.78rem; font-weight:700; color: var(--text-dim); text-transform:uppercase; letter-spacing:.03em; }
+  .review-pick{ font-size:.98rem; font-weight:600; margin-top: 2px; }
+  .review-pick.empty{ color: var(--text-dim); font-weight:500; font-style:italic; }
+
+  .done-wrap{ text-align:center; padding-block: 10px; }
+  .done-emoji{ font-size: 3.4rem; }
+  .confetti{ position:relative; height: 0; }
+  .confetti span{
+    position:absolute; top:-10px; font-size:1.2rem; animation: fall 1.8s ease-in forwards;
+  }
+  @keyframes fall{ to{ transform: translateY(140px) rotate(180deg); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .confetti span{ animation:none; opacity:0; } }
+
+  .notice{
+    margin-top: 16px; padding: 12px 14px; border-radius: 14px; font-size: .86rem; line-height:1.5;
+  }
+  .notice.error{ background: var(--danger-bg); color: var(--danger); }
+  .notice.info{ background: var(--surface-2); color: var(--text-dim); }
+
+  .admin-title{ font-size: clamp(1.4rem,5vw,1.8rem); font-weight:800; }
+  .admin-cat{ margin-top: 22px; }
+  .admin-cat h3{ font-size: 1.02rem; display:flex; align-items:center; gap:8px; }
+  .bar-row{ display:flex; align-items:center; gap:10px; margin-top: 8px; }
+  .bar-name{ font-size:.85rem; width: 40%; flex: 0 0 40%; overflow-wrap:anywhere; }
+  .bar-track{ flex:1; background: var(--surface-2); border-radius: 999px; height: 10px; overflow:hidden; }
+  .bar-fill{ height:100%; background: linear-gradient(90deg,#ffb703,#ff5d8f); border-radius:999px; }
+  .bar-count{ font-size:.8rem; font-weight:700; width: 26px; text-align:right; flex:0 0 auto; font-variant-numeric: tabular-nums; }
+  .admin-note{ margin-top: 22px; font-size: .78rem; color: var(--text-dim); }
+
+  .footer-note{ text-align:center; margin-top: 18px; font-size: .74rem; color: var(--text-dim); }
+</style>
+</head><body><div class="wrap" id="app"></div><script id="ballot-state" type="application/json">{"votes":[{"id":"757ec8bb-3220-4af2-903a-c7063c2643ac","ts":1789552334620,"picks":{"than-con":"Pham Thi Thuy Linh","goi-da-bao-vang":"Van Tien Dat","cong-su-trong-mo":"Nguyen Thi Tuyet Van","ong-hoang-ba-to-ap":"Nguyen Thi Lien Phuong","phat-ngon-cua-team":"Phan Thi Phuong Mai","canh-sat-gl":"Nguyen Thi Tuyet Van","tau-luon-cam-xuc":"Le Hoang Viet","nguoi-hung-tham-lang":"Le Hoang Viet"}},{"id":"68d4f076-80b1-4573-8e6e-607f1017e4f2","ts":1789553014219,"picks":{"than-con":"Chị KA","goi-da-bao-vang":"Nguyen Thi Thu Quyen","cong-su-trong-mo":"Luu Thien Ngoc","ong-hoang-ba-to-ap":"Truong Thi Truc Ly","phat-ngon-cua-team":"Van Tien Dat","canh-sat-gl":"Luu Thien Ngoc","tau-luon-cam-xuc":"Chị KA","nguoi-hung-tham-lang":"Pham Quang Lam"}}]}</script><script id="ballot-logic">
+(function(){
+  "use strict";
+
+  var CATEGORIES = [
+    { id:"than-con", emoji:"🍻", title:"THẦN CỒN",
+      tagline:"“Ngàn ly không say, đến đây tôi tiếp!”",
+      desc:"Ai là người sở hữu tửu lượng đáng nể, càng đông càng vui, càng lâu càng chiến — và dường như cuộc vui nào cũng có thể bắt đầu bằng câu: “Đến đây, tôi tiếp!”" },
+    { id:"goi-da-bao-vang", emoji:"🙆", title:"GỌI DẠ, BẢO VÂNG",
+      tagline:"“Ai nói gì cũng dạ, ai bảo gì cũng vâng”",
+      desc:"Ai là người có câu trả lời quen thuộc nhất team: “Dạ”, “Vâng”, “Okay ạ” — được giao gì cũng nhận, được nhờ gì cũng nhiệt tình đáp lời?" },
+    { id:"cong-su-trong-mo", emoji:"🤝", title:"CỘNG SỰ TRONG MƠ",
+      tagline:"", desc:"Nếu được chọn một người để cùng bước vào một dự án mới, scope mới hay một nhiệm vụ chưa biết bắt đầu từ đâu — bạn muốn người ấy đồng hành cùng mình là ai?" },
+    { id:"ong-hoang-ba-to-ap", emoji:"👑", title:"ÔNG HOÀNG / BÀ TỔ AP",
+      tagline:"", desc:"Nhắc đến AP là nghĩ ngay đến người này — “Chuyện AP à? Tìm người ấy là đúng bài!”" },
+    { id:"phat-ngon-cua-team", emoji:"🎙️", title:"BỘ PHẬN PHÁT NGÔN CỦA TEAM",
+      tagline:"", desc:"Bất kể cuộc họp nào, team nào, khung giờ nào — người này luôn có cách để góp mặt, góp chuyện và góp thêm vài ý kiến. Nếu cả phòng đang im lặng, hãy thử gọi tên người này." },
+    { id:"canh-sat-gl", emoji:"🚨", title:"CẢNH SÁT GL",
+      tagline:"", desc:"“Em ơi, cái này em book sai GL rồi…” - Vào ngày đẹp trời hoặc không lúc MEC, bạn nhận được tin nhắn này, không mở lên vẫn biết là của ai?" },
+    { id:"tau-luon-cam-xuc", emoji:"🎢", title:"TÀU LƯỢN CẢM XÚC",
+      tagline:"", desc:"Chẳng cần đi đâu xa, mỗi ngày ở cạnh người này cũng đủ trải nghiệm đủ cung bậc — lúc lên, lúc xuống, lúc không ai biết tiếp theo sẽ là gì." },
+    { id:"nguoi-hung-tham-lang", emoji:"🦸", title:"NGƯỜI HÙNG THẦM LẶNG",
+      tagline:"", desc:"Ai là người luôn đi sớm, về khuya, âm thầm hỗ trợ mọi người, sẵn sàng có mặt khi cần — và đặc biệt, gần như chưa bao giờ nghe người ấy than phiền?" }
+  ];
+
+  var NAMES = [
+    "Chị KA","Nguyen Thi Thai Ha","Phan Thi Phuong Mai","Cao Trong Nam","Truong Thi Truc Ly",
+    "Vu Thien Nga","Bui Thanh Giang","Luu Thien Ngoc","Nguyen Thi Thu Quyen","Nguyen Thi Lien Phuong",
+    "Nguyen Thi Tuyet Van","Ton Nu Tra My","Van Tien Dat","Tran Mai Linh","Pham Quang Lam",
+    "Le Hoang Viet","Pham Thi Thuy Linh","Hoang Thi Thanh Tuyen","Tran Thu Trang","Nguyen Thi Thu Huong"
+  ];
+
+  // Demo: photos for a first batch of 4 people (base64 data URIs, no
+  // external hosting needed so the public link keeps working). Keyed by
+  // the exact NAMES string. Add more entries here as more photos arrive.
+  // Photos now live in Supabase (public.photos table) and are fetched at
+  // runtime via sbFetchPhotos() below -- this keeps the page's own source
+  // small (no ~700KB of embedded base64) so it can be deployed as a tiny
+  // Supabase Edge Function. Keyed by the exact NAMES string, same as before.
+  // Populated asynchronously in boot(); renderCategory() already falls back
+  // to an initials avatar when PHOTOS[name] is falsy, so an empty/partial
+  // object here is always safe to render.
+  var PHOTOS = {};
+
+  // Idol-show style name cards: people without a photo yet get a colorful
+  // initial avatar (deterministic by name) instead of a plain text pill.
+  var AVATAR_PALETTE = [
+    ["#ff9a76","#ff6f91"], ["#7ee8fa","#4f83cc"], ["#b8f2c9","#3ec97a"], ["#ffd66b","#ff9f43"],
+    ["#c9a7ff","#8b6fe0"], ["#8de8d0","#38b2ac"], ["#ffb8d9","#e0559a"], ["#a0e7ff","#3f8efc"]
+  ];
+  function hashStr(s){
+    var h = 0;
+    for(var i=0;i<s.length;i++){ h = (h*31 + s.charCodeAt(i)) | 0; }
+    return Math.abs(h);
+  }
+  function initialOf(name){
+    var parts = String(name).trim().split(/\s+/);
+    var called = parts[parts.length-1] || "";
+    return (called.charAt(0) || "?").toUpperCase();
+  }
+
+  var MYVOTE_KEY = "gala_dh_myvote_id_v1";
+  var DRAFT_KEY = "gala_dh_draft_v1";
+  var RETRY_KEY = "gala_dh_pending_submit_v1";
+  var JUSTVOTED_KEY = "gala_dh_just_voted_v1";
+  var MAX_RETRIES = 5;
+
+  // ---- storage helpers (best-effort, never throw) ----
+  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  function ssGet(k){ try{ var v = sessionStorage.getItem(k); return v ? JSON.parse(v) : null; }catch(e){ return null; } }
+  function ssSet(k,v){ try{ sessionStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function ssClear(k){ try{ sessionStorage.removeItem(k); }catch(e){} }
+
+  // ---- Supabase-backed shared vote store (works for ANY visitor, no
+  // Claude account needed -- unlike the old self-republish approach,
+  // which only writers/signed-in viewers could use). ----
+  var SUPABASE_URL = "https://ezjhxuopxmgjoaiturlt.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6amh4dW9weG1nam9haXR1cmx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1NDgzNjgsImV4cCI6MjEwNTEyNDM2OH0.DkHqBIVOuO4lVj1dnUM9Asu13xNHD0dU0AdCRtlj_Rg";
+
+  function sbHeaders(extra){
+    var h = {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY
+    };
+    if(extra){ for(var k in extra){ h[k] = extra[k]; } }
+    return h;
+  }
+
+  async function sbFetchVotes(){
+    var res = await fetch(SUPABASE_URL + "/rest/v1/votes?select=id,ts,picks", {
+      method: "GET",
+      headers: sbHeaders()
+    });
+    if(!res.ok){ throw new Error("sb_fetch_" + res.status); }
+    var rows = await res.json();
+    rows.sort(function(a,b){ return (a.ts||0) - (b.ts||0); });
+    return rows;
+  }
+
+  async function sbFetchPhotos(){
+    var res = await fetch(SUPABASE_URL + "/rest/v1/photos?select=name,data_base64,mime", {
+      method: "GET",
+      headers: sbHeaders()
+    });
+    if(!res.ok){ throw new Error("sb_fetch_photos_" + res.status); }
+    var rows = await res.json();
+    rows.forEach(function(row){
+      PHOTOS[row.name] = "data:" + (row.mime || "image/jpeg") + ";base64," + row.data_base64;
+    });
+    return rows;
+  }
+
+  async function sbUpsertVote(id, ts, picks){
+    var res = await fetch(SUPABASE_URL + "/rest/v1/votes?on_conflict=id", {
+      method: "POST",
+      headers: sbHeaders({
+        "Content-Type": "application/json",
+        "Prefer": "resolution=merge-duplicates,return=minimal"
+      }),
+      body: JSON.stringify({ id: id, ts: ts, picks: picks })
+    });
+    if(!res.ok){ throw new Error("sb_upsert_" + res.status); }
+  }
+
+  async function sbDeleteAllVotes(){
+    var res = await fetch(SUPABASE_URL + "/rest/v1/votes?id=not.is.null", {
+      method: "DELETE",
+      headers: sbHeaders({ "Prefer": "return=minimal" })
+    });
+    if(!res.ok){ throw new Error("sb_delete_" + res.status); }
+  }
+
+  function uid(){
+    if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "v" + Date.now() + "-" + Math.random().toString(16).slice(2);
+  }
+
+  // ---- the exact <head> markup (meta + our fonts/styles), hardcoded here
+  // rather than read from the live DOM. A self-publish sends a brand-new
+  // full document to the server, which nonce-stamps/processes literal
+  // <style>/<link> tags in THAT string the same way it does for a normal
+  // publish -- reading document.head.innerHTML at runtime and reinserting
+  // it client-side does NOT get that processing and silently fails to
+  // apply (discovered via the "Sửa lại để UX/UI đẹp mắt hơn" artifact
+  // comment). Keep this in sync with the <title>/<link>/<style> block at
+  // the top of this file if that ever changes. ----
+  var PAGE_HEAD_HTML = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gala Danh Hiệu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg: #f6f4fb;
+    --surface: #ffffff;
+    --surface-2: #efe9fb;
+    --border: rgba(33,29,61,0.12);
+    --text: #211d3d;
+    --text-dim: #635c86;
+    --accent: #c97e00;
+    --accent-ink: #ffffff;
+    --accent-2: #c22a63;
+    --accent-2-ink: #ffffff;
+    --chip-bg: #efe9fb;
+    --chip-border: rgba(33,29,61,0.14);
+    --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+    --shadow: 0 10px 28px rgba(33,29,61,0.10);
+    --danger: #b3261e;
+    --danger-bg: #fbe9e7;
+    --ok: #1e7a4c;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #14122b;
+      --surface: #1e1b3d;
+      --surface-2: #282354;
+      --border: rgba(255,255,255,0.10);
+      --text: #f5f3ff;
+      --text-dim: #b6afd9;
+      --accent: #ffb703;
+      --accent-ink: #2c1b00;
+      --accent-2: #ff5d8f;
+      --accent-2-ink: #3a0016;
+      --chip-bg: #282354;
+      --chip-border: rgba(255,255,255,0.14);
+      --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+      --shadow: 0 10px 32px rgba(0,0,0,0.5);
+      --danger: #ff8a80;
+      --danger-bg: #3a1512;
+      --ok: #6fd39a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #14122b;
+    --surface: #1e1b3d;
+    --surface-2: #282354;
+    --border: rgba(255,255,255,0.10);
+    --text: #f5f3ff;
+    --text-dim: #b6afd9;
+    --accent: #ffb703;
+    --accent-ink: #2c1b00;
+    --accent-2: #ff5d8f;
+    --accent-2-ink: #3a0016;
+    --chip-bg: #282354;
+    --chip-border: rgba(255,255,255,0.14);
+    --chip-selected: linear-gradient(135deg,#ffb703,#ff5d8f);
+    --shadow: 0 10px 32px rgba(0,0,0,0.5);
+    --danger: #ff8a80;
+    --danger-bg: #3a1512;
+    --ok: #6fd39a;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Be Vietnam Pro', -apple-system, system-ui, sans-serif;
+    padding-inline: 16px;
+    padding-block: 28px;
+    min-height: 100%;
+  }
+  .wrap{ max-width: 560px; margin: 0 auto; }
+  h1,h2,h3{ font-family: 'Baloo 2', ui-rounded, system-ui, sans-serif; text-wrap: balance; margin: 0; }
+  .eyebrow{
+    font-size: 0.72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+  }
+  .btn{
+    font-family: inherit; font-weight: 700; font-size: 0.95rem;
+    border-radius: 999px; border: 1px solid transparent; cursor: pointer;
+    padding: 12px 22px; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn:disabled{ opacity: .45; cursor: not-allowed; }
+  .btn-primary{
+    background: linear-gradient(135deg,#ffb703,#ff5d8f);
+    color: #2c1b00;
+    box-shadow: 0 6px 18px rgba(255,93,143,0.35);
+  }
+  .btn-ghost{
+    background: transparent; color: var(--text-dim); border-color: var(--border);
+  }
+  .btn-text{
+    background: none; border: none; color: var(--accent-2); font-weight: 600; padding: 8px 4px;
+  }
+  .btn-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top: 22px; flex-wrap: wrap; }
+  .btn-row .right{ display:flex; gap: 10px; margin-left:auto; }
+
+  .progress{ display:flex; gap:6px; justify-content:center; margin-bottom: 18px; }
+  .dot{
+    width: 22px; height: 22px; border-radius: 50%; font-size: .68rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    border: 2px solid var(--border); color: var(--text-dim); background: var(--surface);
+    flex: 0 0 auto;
+  }
+  .dot.done{ background: var(--ok); border-color: var(--ok); color: #fff; }
+  .dot.current{ border-color: var(--accent-2); color: var(--accent-2); box-shadow: 0 0 0 3px rgba(194,42,99,0.15); }
+
+  .cat-emoji{ font-size: 2.6rem; line-height: 1; margin-bottom: 8px; }
+  .cat-title{ font-size: clamp(1.3rem,4.6vw,1.7rem); font-weight: 800; letter-spacing: .01em; }
+  .cat-tagline{ color: var(--accent-2); font-style: italic; font-weight:600; margin-top:8px; font-size:.95rem; }
+  .cat-desc{ color: var(--text-dim); margin-top: 10px; line-height:1.55; font-size:.94rem; }
+
+  .name-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 12px; margin-top: 20px; }
+  .name-card{
+    position: relative; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden;
+    cursor: pointer; padding: 0; border: 3px solid transparent; background: var(--chip-bg);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .name-card:active{ transform: scale(0.95); }
+  .name-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit: cover; }
+  .name-avatar-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: 'Baloo 2', ui-rounded, system-ui, sans-serif;
+    font-size: 2rem; font-weight: 800; color: rgba(255,255,255,0.92);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .name-label{
+    position:absolute; left:0; right:0; bottom:0; padding: 20px 8px 9px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.78) 100%);
+    color:#fff; font-size:.76rem; font-weight:700; text-align:center; line-height:1.25;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
+  }
+  .name-check-badge{
+    position:absolute; top:7px; right:7px; width:25px; height:25px; border-radius:50%; z-index:2;
+    background: linear-gradient(135deg,#ffb703,#ff5d8f); color:#2c1b00;
+    display:flex; align-items:center; justify-content:center; font-size:.82rem; font-weight:800;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35); opacity:0; transform: scale(0.4);
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .name-card[aria-checked="true"]{
+    border-color: #ffb703;
+    box-shadow: 0 0 0 3px rgba(255,183,3,0.35), 0 10px 22px rgba(255,93,143,0.4);
+    transform: translateY(-2px);
+  }
+  .name-card[aria-checked="true"] .name-check-badge{ opacity:1; transform: scale(1); }
+  .name-card[aria-checked="true"] .name-label{
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(154,49,89,0.82) 78%, rgba(124,25,64,0.9) 100%);
+  }
+  .skip-link{ margin-top: 14px; text-align:center; }
+
+  .intro-hero{ text-align:center; padding-block: 6px 4px; }
+  .intro-hero .cat-emoji{ font-size: 3rem; }
+  .intro-title{ font-size: clamp(1.7rem,6vw,2.3rem); font-weight: 800; margin-top: 6px; }
+  .intro-sub{ color: var(--text-dim); margin-top: 12px; line-height:1.6; font-size: .96rem; }
+  .stat-chip{
+    display:inline-flex; align-items:center; gap:6px; margin-top: 16px;
+    background: var(--surface-2); border-radius: 999px; padding: 7px 14px;
+    font-size: .82rem; font-weight: 600; color: var(--text-dim);
+  }
+  .privacy-note{
+    margin-top: 18px; font-size: .78rem; color: var(--text-dim);
+    display:flex; align-items:center; gap:6px; justify-content:center;
+  }
+  .cta{ margin-top: 22px; text-align:center; }
+  .cta .btn-primary{ font-size: 1.02rem; padding: 14px 28px; }
+
+  .review-row{
+    display:flex; justify-content:space-between; align-items:flex-start; gap: 10px;
+    padding: 12px 0; border-bottom: 1px solid var(--border);
+  }
+  .review-row:last-of-type{ border-bottom:none; }
+  .review-left{ display:flex; gap:10px; align-items:flex-start; min-width:0; }
+  .review-emoji{ font-size:1.3rem; flex:0 0 auto; }
+  .review-cat{ font-size:.78rem; font-weight:700; color: var(--text-dim); text-transform:uppercase; letter-spacing:.03em; }
+  .review-pick{ font-size:.98rem; font-weight:600; margin-top: 2px; }
+  .review-pick.empty{ color: var(--text-dim); font-weight:500; font-style:italic; }
+
+  .done-wrap{ text-align:center; padding-block: 10px; }
+  .done-emoji{ font-size: 3.4rem; }
+  .confetti{ position:relative; height: 0; }
+  .confetti span{
+    position:absolute; top:-10px; font-size:1.2rem; animation: fall 1.8s ease-in forwards;
+  }
+  @keyframes fall{ to{ transform: translateY(140px) rotate(180deg); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .confetti span{ animation:none; opacity:0; } }
+
+  .notice{
+    margin-top: 16px; padding: 12px 14px; border-radius: 14px; font-size: .86rem; line-height:1.5;
+  }
+  .notice.error{ background: var(--danger-bg); color: var(--danger); }
+  .notice.info{ background: var(--surface-2); color: var(--text-dim); }
+
+  .admin-title{ font-size: clamp(1.4rem,5vw,1.8rem); font-weight:800; }
+  .admin-cat{ margin-top: 22px; }
+  .admin-cat h3{ font-size: 1.02rem; display:flex; align-items:center; gap:8px; }
+  .bar-row{ display:flex; align-items:center; gap:10px; margin-top: 8px; }
+  .bar-name{ font-size:.85rem; width: 40%; flex: 0 0 40%; overflow-wrap:anywhere; }
+  .bar-track{ flex:1; background: var(--surface-2); border-radius: 999px; height: 10px; overflow:hidden; }
+  .bar-fill{ height:100%; background: linear-gradient(90deg,#ffb703,#ff5d8f); border-radius:999px; }
+  .bar-count{ font-size:.8rem; font-weight:700; width: 26px; text-align:right; flex:0 0 auto; font-variant-numeric: tabular-nums; }
+  .admin-note{ margin-top: 22px; font-size: .78rem; color: var(--text-dim); }
+
+  .footer-note{ text-align:center; margin-top: 18px; font-size: .74rem; color: var(--text-dim); }
+</style>
+`;
+  var LOGIC_SCRIPT_HTML = document.getElementById("ballot-logic").outerHTML;
+
+  var state = { votes: [] };
+
+  // ---- view state (per-viewer, local only until submit) ----
+  var view = { step: "intro", catIndex: 0, picks: {} };
+
+  function myVoteId(){
+    var id = lsGet(MYVOTE_KEY);
+    if(!id){ id = uid(); lsSet(MYVOTE_KEY, id); }
+    return id;
+  }
+
+  function findMyVote(){
+    var id = lsGet(MYVOTE_KEY);
+    if(!id) return null;
+    for(var i=0;i<state.votes.length;i++){
+      if(state.votes[i].id === id) return state.votes[i];
+    }
+    return null;
+  }
+
+  function saveDraft(){
+    ssSet(DRAFT_KEY, { step: view.step, catIndex: view.catIndex, picks: view.picks });
+  }
+  function restoreDraftIfAny(){
+    var d = ssGet(DRAFT_KEY);
+    if(d && d.picks){
+      view.step = (d.step === "intro" || d.step === "done") ? "cat" : (d.step || "intro");
+      view.catIndex = d.catIndex || 0;
+      view.picks = d.picks;
+      return true;
+    }
+    return false;
+  }
+
+  var app = document.getElementById("app");
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function render(){
+    if(view.step === "intro") return renderIntro();
+    if(view.step === "cat") return renderCategory();
+    if(view.step === "review") return renderReview();
+    if(view.step === "saving") return renderSaving();
+    if(view.step === "done") return renderDone();
+    if(view.step === "error") return renderError();
+    if(view.step === "adminlogin") return renderAdminLogin();
+    if(view.step === "admin") return renderAdmin();
+  }
+
+  function progressDots(){
+    var html = '<div class="progress">';
+    for(var i=0;i<CATEGORIES.length;i++){
+      var cls = "dot";
+      var content = String(i+1);
+      var answered = Object.prototype.hasOwnProperty.call(view.picks, CATEGORIES[i].id);
+      if(answered){ cls += " done"; content = "✓"; }
+      if(view.step === "cat" && i === view.catIndex){ cls += " current"; }
+      html += '<div class="'+cls+'">'+content+'</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderIntro(){
+    var existing = findMyVote();
+    var count = state.votes.length;
+    app.innerHTML =
+      '<div class="card intro-hero">' +
+        '<div class="cat-emoji">🏆</div>' +
+        '<div class="eyebrow">Bình chọn nội bộ · ẩn danh</div>' +
+        '<h1 class="intro-title">Gala Danh Hiệu</h1>' +
+        '<p class="intro-sub">8 danh hiệu vui dành cho team — mỗi danh hiệu, chọn ra một người bạn nghĩ tới đầu tiên. Vui là chính, đừng nghĩ quá nhiều nhé!</p>' +
+        (count > 0 ? '<div class="stat-chip">🎉 Đã có <b>'+count+'</b> người tham gia bình chọn</div>' : '') +
+        '<div class="cta"><button class="btn btn-primary" id="start-btn">' +
+          (existing ? 'Sửa bình chọn của tôi ✏️' : 'Bắt đầu bình chọn 🎉') +
+        '</button></div>' +
+        '<div class="privacy-note">🕶️ Bình chọn ẩn danh — không ai biết bạn đã chọn ai.</div>' +
+      '</div>' +
+      '<div class="footer-note"><button class="btn-text" id="admin-link-btn" type="button" style="font-size:.74rem;">🔑 Ban tổ chức</button></div>';
+    document.getElementById("start-btn").onclick = function(){
+      var ex = findMyVote();
+      view.picks = ex ? Object.assign({}, ex.picks) : {};
+      view.step = "cat";
+      view.catIndex = 0;
+      saveDraft();
+      render();
+    };
+    document.getElementById("admin-link-btn").onclick = function(){
+      view.step = "adminlogin";
+      render();
+    };
+  }
+
+  var ADMIN_PASSCODE = "GALA2026";
+
+  function renderAdminLogin(){
+    app.innerHTML =
+      '<div class="card" style="text-align:center;">' +
+        '<div class="cat-emoji">🔑</div>' +
+        '<h2 style="font-size:1.15rem;">Khu vực ban tổ chức</h2>' +
+        '<p class="intro-sub">Nhập mật khẩu để xem kết quả tổng hợp.</p>' +
+        '<div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">' +
+          '<input id="admin-pass" type="password" placeholder="Mật khẩu" ' +
+            'style="font-family:inherit;font-size:.95rem;padding:10px 14px;border-radius:999px;border:1px solid var(--chip-border);background:var(--chip-bg);color:var(--text);min-width:160px;">' +
+        '</div>' +
+        '<div id="admin-pass-error"></div>' +
+        '<div class="cta"><button class="btn btn-primary" id="admin-pass-btn">Xem kết quả</button></div>' +
+        '<div class="footer-note"><button class="btn-text" id="admin-back-btn" type="button">← Quay lại bình chọn</button></div>' +
+      '</div>';
+    var input = document.getElementById("admin-pass");
+    async function tryLogin(){
+      if(input.value === ADMIN_PASSCODE){
+        try{ state.votes = await sbFetchVotes(); }catch(e){ /* fall back to last-known votes */ }
+        view.step = "admin";
+        render();
+      } else {
+        document.getElementById("admin-pass-error").innerHTML = '<div class="notice error">Sai mật khẩu, thử lại nhé.</div>';
+      }
+    }
+    document.getElementById("admin-pass-btn").onclick = tryLogin;
+    input.onkeydown = function(e){ if(e.key === "Enter") tryLogin(); };
+    input.focus();
+    document.getElementById("admin-back-btn").onclick = function(){
+      view.step = "intro";
+      render();
+    };
+  }
+
+  function renderCategory(){
+    var cat = CATEGORIES[view.catIndex];
+    var picked = view.picks[cat.id];
+    var chips = NAMES.map(function(name, idx){
+      var checked = picked === name;
+      var photo = PHOTOS[name];
+      var inner;
+      if(photo){
+        inner = '<img class="name-photo" src="'+photo+'" alt="" aria-hidden="true">';
+      } else {
+        var pal = AVATAR_PALETTE[hashStr(name) % AVATAR_PALETTE.length];
+        inner = '<div class="name-avatar-fallback" style="background:linear-gradient(135deg,'+pal[0]+','+pal[1]+')">'+esc(initialOf(name))+'</div>';
+      }
+      return '<button type="button" class="name-card" role="radio" aria-checked="'+(checked?'true':'false')+'" ' +
+        'id="chip-'+cat.id+'-'+idx+'" data-name="'+esc(name)+'">' +
+          inner +
+          '<div class="name-check-badge">✓</div>' +
+          '<div class="name-label">'+esc(name)+'</div>' +
+        '</button>';
+    }).join("");
+
+    app.innerHTML =
+      progressDots() +
+      '<div class="card">' +
+        '<div class="eyebrow">Danh hiệu '+(view.catIndex+1)+' / '+CATEGORIES.length+'</div>' +
+        '<div class="cat-emoji">'+cat.emoji+'</div>' +
+        '<div class="cat-title">'+esc(cat.title)+'</div>' +
+        (cat.tagline ? '<div class="cat-tagline">'+esc(cat.tagline)+'</div>' : '') +
+        '<div class="cat-desc">'+esc(cat.desc)+'</div>' +
+        '<div class="name-grid" role="radiogroup" aria-label="Chọn người cho danh hiệu này">'+chips+'</div>' +
+        '<div class="skip-link"><button class="btn-text" id="skip-btn" type="button">Bỏ qua danh hiệu này</button></div>' +
+        '<div class="btn-row">' +
+          '<button class="btn btn-ghost" id="back-btn" type="button" '+(view.catIndex===0?'disabled':'')+'>← Quay lại</button>' +
+          '<div class="right"><button class="btn btn-primary" id="next-btn" type="button">' +
+            (view.catIndex === CATEGORIES.length-1 ? 'Xem lại phiếu →' : 'Tiếp theo →') +
+          '</button></div>' +
+        '</div>' +
+      '</div>';
+
+    var chipEls = app.querySelectorAll(".name-card");
+    for(var i=0;i<chipEls.length;i++){
+      chipEls[i].onclick = function(){
+        var name = this.getAttribute("data-name");
+        view.picks[cat.id] = name;
+        saveDraft();
+        renderCategory();
+      };
+    }
+    document.getElementById("skip-btn").onclick = function(){
+      delete view.picks[cat.id];
+      saveDraft();
+      if(view.catIndex === CATEGORIES.length-1){ view.step = "review"; } else { view.catIndex++; }
+      saveDraft();
+      render();
+    };
+    document.getElementById("back-btn").onclick = function(){
+      if(view.catIndex > 0){ view.catIndex--; saveDraft(); render(); }
+    };
+    document.getElementById("next-btn").onclick = function(){
+      if(view.catIndex === CATEGORIES.length-1){ view.step = "review"; } else { view.catIndex++; }
+      saveDraft();
+      render();
+    };
+  }
+
+  function renderReview(){
+    var rows = CATEGORIES.map(function(cat, idx){
+      var pick = view.picks[cat.id];
+      return '<div class="review-row">' +
+        '<div class="review-left"><span class="review-emoji">'+cat.emoji+'</span>' +
+          '<div><div class="review-cat">'+esc(cat.title)+'</div>' +
+          '<div class="review-pick'+(pick?'':' empty')+'">'+(pick ? esc(pick) : 'Đã bỏ qua')+'</div></div></div>' +
+        '<button class="btn-text" data-idx="'+idx+'" type="button">Sửa</button>' +
+      '</div>';
+    }).join("");
+
+    app.innerHTML =
+      '<div class="card">' +
+        '<div class="eyebrow">Xem lại trước khi gửi</div>' +
+        '<h2 style="font-size:1.3rem;">Phiếu bình chọn của bạn</h2>' +
+        '<div style="margin-top:14px;">'+rows+'</div>' +
+        '<div id="review-notice"></div>' +
+        '<div class="btn-row">' +
+          '<button class="btn btn-ghost" id="back-review-btn" type="button">← Sửa tiếp</button>' +
+          '<div class="right"><button class="btn btn-primary" id="submit-btn" type="button">Gửi bình chọn 🎊</button></div>' +
+        '</div>' +
+      '</div>';
+
+    var editBtns = app.querySelectorAll("[data-idx]");
+    for(var i=0;i<editBtns.length;i++){
+      editBtns[i].onclick = function(){
+        view.catIndex = parseInt(this.getAttribute("data-idx"),10);
+        view.step = "cat";
+        saveDraft();
+        render();
+      };
+    }
+    document.getElementById("back-review-btn").onclick = function(){
+      view.catIndex = CATEGORIES.length-1;
+      view.step = "cat";
+      saveDraft();
+      render();
+    };
+    document.getElementById("submit-btn").onclick = function(){
+      submitBallot(view.picks);
+    };
+  }
+
+  function renderSaving(){
+    app.innerHTML =
+      '<div class="card" style="text-align:center;">' +
+        '<div class="cat-emoji">📮</div>' +
+        '<h2 style="font-size:1.15rem;">Đang gửi bình chọn của bạn…</h2>' +
+        '<p class="intro-sub">Chỉ mất vài giây thôi.</p>' +
+      '</div>';
+  }
+
+  function renderError(msg, retryable){
+    app.innerHTML =
+      '<div class="card" style="text-align:center;">' +
+        '<div class="cat-emoji">😅</div>' +
+        '<h2 style="font-size:1.15rem;">Chưa gửi được bình chọn</h2>' +
+        '<div class="notice error">'+esc(msg)+'</div>' +
+        '<div class="cta"><button class="btn btn-primary" id="retry-btn">Thử lại</button></div>' +
+      '</div>';
+    document.getElementById("retry-btn").onclick = function(){
+      submitBallot(view.picks);
+    };
+  }
+
+  function renderDone(){
+    var confettiSpans = "";
+    var emojis = ["🎉","✨","🎊","🏆","💫"];
+    for(var i=0;i<10;i++){
+      var left = Math.round(Math.random()*100);
+      var delay = (Math.random()*0.6).toFixed(2);
+      var em = emojis[i % emojis.length];
+      confettiSpans += '<span style="left:'+left+'%;animation-delay:'+delay+'s;">'+em+'</span>';
+    }
+    app.innerHTML =
+      '<div class="card done-wrap">' +
+        '<div class="confetti">'+confettiSpans+'</div>' +
+        '<div class="done-emoji">🎉</div>' +
+        '<h2 style="font-size:1.35rem;margin-top:8px;">Cảm ơn bạn đã bình chọn!</h2>' +
+        '<p class="intro-sub">Kết quả sẽ được công bố sau khi ban tổ chức đóng bình chọn. Bạn có thể đóng trang này bây giờ.</p>' +
+        '<div class="cta"><button class="btn btn-ghost" id="edit-again-btn">Sửa lại bình chọn của tôi</button></div>' +
+      '</div>';
+    document.getElementById("edit-again-btn").onclick = function(){
+      var ex = findMyVote();
+      view.picks = ex ? Object.assign({}, ex.picks) : {};
+      view.step = "cat"; view.catIndex = 0;
+      saveDraft();
+      render();
+    };
+  }
+
+  // ---- submit straight to the shared Supabase store (works for any
+  // visitor -- no Claude account needed) ----
+  async function submitBallot(picks){
+    view.step = "saving";
+    render();
+    var id = myVoteId();
+    var ts = Date.now();
+
+    ssSet(RETRY_KEY, { picks: picks, tries: (ssGet(RETRY_KEY) ? ssGet(RETRY_KEY).tries : 0) });
+
+    try{
+      await sbUpsertVote(id, ts, picks);
+      var newVotes = state.votes.filter(function(v){ return v.id !== id; });
+      newVotes.push({ id: id, ts: ts, picks: picks });
+      state.votes = newVotes;
+
+      ssClear(RETRY_KEY);
+      ssClear(DRAFT_KEY);
+      ssSet(JUSTVOTED_KEY, true);
+      view.step = "done";
+      render();
+    }catch(err){
+      renderError("Có lỗi khi gửi bình chọn (mạng chập chờn?), thử lại giúp mình nhé.", true);
+    }
+  }
+
+  function checkPendingRetry(){
+    var pending = ssGet(RETRY_KEY);
+    if(!pending) return false;
+    var tries = pending.tries || 0;
+    if(tries >= MAX_RETRIES){ ssClear(RETRY_KEY); return false; }
+    ssSet(RETRY_KEY, { picks: pending.picks, tries: tries + 1 });
+    view.picks = pending.picks;
+    view.step = "saving";
+    render();
+    submitBallot(pending.picks);
+    return true;
+  }
+
+  // ---- admin / results view ----
+  async function resetAllVotes(){
+    if(!confirm("Xoá toàn bộ phiếu đã ghi nhận? Không thể hoàn tác.")) return;
+    try{
+      await sbDeleteAllVotes();
+      state.votes = [];
+      renderAdmin();
+    }catch(err){
+      alert("Không xoá được, thử lại nhé. (" + err.message + ")");
+    }
+  }
+
+  function renderAdmin(){
+    var total = state.votes.length;
+    var sections = CATEGORIES.map(function(cat){
+      var tally = {};
+      state.votes.forEach(function(v){
+        var pick = v.picks && v.picks[cat.id];
+        if(pick){ tally[pick] = (tally[pick]||0) + 1; }
+      });
+      var rows = Object.keys(tally).map(function(name){ return { name: name, count: tally[name] }; });
+      rows.sort(function(a,b){ return b.count - a.count; });
+      var max = rows.length ? rows[0].count : 0;
+      var rowsHtml = rows.length ? rows.map(function(r, i){
+        var pct = max ? Math.round((r.count/max)*100) : 0;
+        return '<div class="bar-row">' +
+          '<div class="bar-name">'+(i===0?'👑 ':'')+esc(r.name)+'</div>' +
+          '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div>' +
+          '<div class="bar-count">'+r.count+'</div>' +
+        '</div>';
+      }).join("") : '<p class="intro-sub" style="margin-top:8px;">Chưa có phiếu nào cho danh hiệu này.</p>';
+      return '<div class="admin-cat"><h3>'+cat.emoji+' '+esc(cat.title)+'</h3>'+rowsHtml+'</div>';
+    }).join("");
+
+    app.innerHTML =
+      '<div class="card">' +
+        '<div class="eyebrow">Chỉ dành cho ban tổ chức</div>' +
+        '<div class="admin-title">🏆 Kết quả Gala Danh Hiệu</div>' +
+        '<p class="intro-sub" style="margin-top:6px;">Tổng cộng <b>'+total+'</b> phiếu bình chọn đã ghi nhận.</p>' +
+        sections +
+        '<div class="btn-row"><button class="btn btn-ghost" id="admin-exit-btn" type="button">← Quay lại</button>' +
+          '<div class="right"><button class="btn-text" id="admin-reset-btn" type="button" style="color:var(--danger);">🗑️ Xoá toàn bộ phiếu</button></div></div>' +
+        '<div class="admin-note">Mật khẩu này chỉ nên giữ riêng cho ban tổ chức — đừng gửi kèm link bình chọn cho cả team.</div>' +
+      '</div>';
+    document.getElementById("admin-exit-btn").onclick = function(){
+      view.step = "intro";
+      render();
+    };
+    document.getElementById("admin-reset-btn").onclick = resetAllVotes;
+  }
+
+  // ---- init ----
+  function renderLoading(){
+    app.innerHTML =
+      '<div class="card intro-hero">' +
+        '<div class="cat-emoji">🏆</div>' +
+        '<h2 style="font-size:1.15rem;">Đang tải…</h2>' +
+      '</div>';
+  }
+
+  async function boot(){
+    renderLoading();
+    try{
+      var results = await Promise.all([
+        sbFetchVotes(),
+        sbFetchPhotos().catch(function(){ /* ok: fall back to initials avatars */ })
+      ]);
+      state.votes = results[0];
+    }catch(e){
+      state.votes = [];
+    }
+    if(ssGet(JUSTVOTED_KEY)){
+      ssClear(JUSTVOTED_KEY);
+      view.step = "done";
+      render();
+    } else if(checkPendingRetry()){
+      // handled inside
+    } else if(restoreDraftIfAny()){
+      render();
+    } else {
+      render();
+    }
+  }
+
+  boot();
+})();
+</script></body></html>
