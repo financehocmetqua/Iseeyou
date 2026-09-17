@@ -243,7 +243,7 @@
   ];
 
   var NAMES = [
-    "Chị KA","Nguyen Thi Thai Ha","Phan Thi Phuong Mai","Cao Trong Nam","Truong Thi Truc Ly",
+    "Lê Nguyễn Kim Anh","Nguyen Thi Thai Ha","Phan Thi Phuong Mai","Cao Trong Nam","Truong Thi Truc Ly",
     "Vu Thien Nga","Bui Thanh Giang","Luu Thien Ngoc","Nguyen Thi Thu Quyen","Nguyen Thi Lien Phuong",
     "Nguyen Thi Tuyet Van","Ton Nu Tra My","Van Tien Dat","Tran Mai Linh","Pham Quang Lam",
     "Le Hoang Viet","Pham Thi Thuy Linh","Hoang Thi Thanh Tuyen","Tran Thu Trang","Nguyen Thi Thu Huong"
@@ -746,7 +746,7 @@
         (cat.tagline ? '<div class="cat-tagline">'+esc(cat.tagline)+'</div>' : '') +
         '<div class="cat-desc">'+esc(cat.desc)+'</div>' +
         '<div class="name-grid" role="radiogroup" aria-label="Chọn người cho danh hiệu này">'+chips+'</div>' +
-        '<div class="skip-link"><button class="btn-text" id="skip-btn" type="button">Bỏ qua danh hiệu này</button></div>' +
+        '<div class="skip-link"><span class="btn-text skip-hint">Lướt lên để đọc câu hỏi</span></div>' +
         '<div class="btn-row">' +
           '<button class="btn btn-ghost" id="back-btn" type="button" '+(view.catIndex===0?'disabled':'')+'>← Quay lại</button>' +
           '<div class="right"><button class="btn btn-primary" id="next-btn" type="button">' +
@@ -764,13 +764,6 @@
         renderCategory();
       };
     }
-    document.getElementById("skip-btn").onclick = function(){
-      delete view.picks[cat.id];
-      saveDraft();
-      if(view.catIndex === CATEGORIES.length-1){ view.step = "review"; } else { view.catIndex++; }
-      saveDraft();
-      render();
-    };
     document.getElementById("back-btn").onclick = function(){
       if(view.catIndex > 0){ view.catIndex--; saveDraft(); render(); }
     };
